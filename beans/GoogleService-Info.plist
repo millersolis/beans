@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1078177752776-g972vlmv17as1i13s2bnoioi11eccjs3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1078177752776-g972vlmv17as1i13s2bnoioi11eccjs3</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDtlDWIcqBb2OUoq-RRr7r-e8AVbJ_JrIo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1078177752776</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>millersolis.beans</string>
+	<key>PROJECT_ID</key>
+	<string>beanss</string>
+	<key>STORAGE_BUCKET</key>
+	<string>beanss.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1078177752776:ios:a38fc823da01ee16ea27fd</string>
+</dict>
+</plist>
