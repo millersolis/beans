@@ -16,47 +16,10 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bU3-F9-3FO">
-                                <rect key="frame" x="40" y="756" width="334" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="clL-jR-xrw">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
-                                        <state key="normal" title="Login"/>
-                                        <connections>
-                                            <segue destination="oS9-dk-XiT" kind="show" id="2nl-Gz-wMY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLi-Ct-Pna">
-                                        <rect key="frame" x="0.0" y="60" width="334" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="Qpk-FA-SxL"/>
-                                        </constraints>
-                                        <state key="normal" title="Sign Up"/>
-                                        <connections>
-                                            <segue destination="7sT-10-Ova" kind="show" id="PKT-zF-Tqd"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="TLi-Ct-Pna" firstAttribute="height" secondItem="clL-jR-xrw" secondAttribute="height" id="L0o-g6-p1v"/>
-                                    <constraint firstItem="TLi-Ct-Pna" firstAttribute="height" secondItem="clL-jR-xrw" secondAttribute="height" id="acX-Wd-zC6"/>
-                                </constraints>
-                            </stackView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="bU3-F9-3FO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="A8h-YE-RRm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bU3-F9-3FO" secondAttribute="trailing" constant="40" id="Ojl-qJ-aom"/>
-                            <constraint firstAttribute="bottom" secondItem="bU3-F9-3FO" secondAttribute="bottom" constant="40" id="fmF-I0-sFu"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dxm-aE-PoO"/>
-                    <connections>
-                        <outlet property="loginButton" destination="clL-jR-xrw" id="ge9-qU-8mv"/>
-                        <outlet property="signUpButton" destination="TLi-Ct-Pna" id="aVD-Zw-5cZ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -82,7 +45,7 @@
         <!--Sign Up View Controller-->
         <scene sceneID="SYg-cE-0Fw">
             <objects>
-                <viewController id="7sT-10-Ova" customClass="SignUpViewController" customModule="beans" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpViewController" id="7sT-10-Ova" customClass="SignUpViewController" customModule="beans" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iCe-9w-wXA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,7 +139,7 @@
         <!--Login View Controller-->
         <scene sceneID="CPW-r8-teS">
             <objects>
-                <viewController id="oS9-dk-XiT" customClass="LoginViewController" customModule="beans" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="oS9-dk-XiT" customClass="LoginViewController" customModule="beans" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9vC-LU-6bg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
