@@ -18,12 +18,31 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    var backButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Do any additional setup after loading the view
+        view.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
+        
         setUpElements()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        //Back button
+        backButton = UIButton(frame: CGRect(x: 25, y: 45, width: 30, height: 30))
+        backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
+        backButton.tintColor = Constants.Colors.green
+        view.addSubview(backButton)
+        backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
     }
     
     func setUpElements() {
@@ -105,6 +124,11 @@ class SignUpViewController: UIViewController {
         }
     }
     
+    //Go back to main when back button tapped
+    @objc func backTapped(sender: UIButton!) {
+        transitionToMain()
+    }
+    
     //Show error message label with passed text
     func showError(_ message: String) {
         errorLabel.text = message
@@ -116,6 +140,14 @@ class SignUpViewController: UIViewController {
         let homeViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.homeViewController) as? HomeViewController
         
         view.window?.rootViewController = homeViewController
+        view.window?.makeKeyAndVisible()
+    }
+    
+    //Transition to main screen
+    func transitionToMain() {
+        let mainViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.mainViewController) as? ViewController
+        
+        view.window?.rootViewController = mainViewController
         view.window?.makeKeyAndVisible()
     }
 

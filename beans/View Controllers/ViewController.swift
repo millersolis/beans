@@ -18,7 +18,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = .green
+        view.backgroundColor = .lightGray   //for debugging purposes
+        if #available(iOS 13.0, *) {
+            // Always adopt a light interface style.
+            overrideUserInterfaceStyle = .light
+        }
         
         setUpElements()
     }
@@ -26,9 +30,9 @@ class ViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        //let scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
-        let scrollView = UIScrollView(frame: CGRect(x: 10, y: 10, width: view.frame.size.width - 20, height: view.frame.size.height - 20))
-        scrollView.backgroundColor = .gray
+        let scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
+        //let scrollView = UIScrollView(frame: CGRect(x: 10, y: 10, width: view.frame.size.width - 20, height: view.frame.size.height - 20))  //View backgorund color margins
+        scrollView.backgroundColor = .white
         view.addSubview(scrollView)
         
         let welcome = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 80, y: 30, width: 160, height: 40))
