@@ -23,7 +23,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view
-        //view.backgroundColor = .white
+        view.backgroundColor = .white
+        
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light

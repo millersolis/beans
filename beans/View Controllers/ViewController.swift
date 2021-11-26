@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         view.backgroundColor = .lightGray   //for debugging purposes
+        
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light

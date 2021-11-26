@@ -26,6 +26,7 @@ class SignUpViewController: UIViewController {
 
         // Do any additional setup after loading the view
         view.backgroundColor = .white
+        
         if #available(iOS 13.0, *) {
             // Always adopt a light interface style.
             overrideUserInterfaceStyle = .light
@@ -108,9 +109,13 @@ class SignUpViewController: UIViewController {
                     //User was created successfully, now store user data
                     let db = Firestore.firestore()
                     
-                    db.collection("users").addDocument(data: ["firstName": firstName,
-                                                              "lastName": lastName,
-                                                              "uid": result!.user.uid]) { (error) in
+                    let userData: [String: Any] = [
+                        "firstName": firstName,
+                        "lastName": lastName,
+                        "uid": String(result!.user.uid)
+                    ]
+                    
+                    db.collection("users").document(result!.user.uid).setData(userData) { (error) in
                         if error != nil {
                             //Show error message
                             self.showError("Error saving user data")
