@@ -6,13 +6,22 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
     
     var loginButton: UIButton!
     var signUpButton: UIButton!
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        Auth.auth().addStateDidChangeListener { auth, user in
+          if user != nil {
+              self.transitionToHome()
+          } else {
+            // No User is signed in. Show user the login screen
+          }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +51,12 @@ class ViewController: UIViewController {
         scrollView.addSubview(welcome)
         
         let menuTitle = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 50, y: 80, width: 100, height: 30))
-        menuTitle.text = "This week..."
+        menuTitle.text = "Customize your meals"
         menuTitle.textColor = .black
         scrollView.addSubview(menuTitle)
         
         let menuEnd = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 50, y: 2000, width: 100, height: 30))
-        menuEnd.text = "End of menu"
+        menuEnd.text = "This week's menu"
         menuEnd.textColor = .black
         scrollView.addSubview(menuEnd)
         
@@ -73,16 +82,33 @@ class ViewController: UIViewController {
     }
     
     @objc func loginTapped(sender: UIButton!) {
+        self.transitionToLogin()
+    }
+    
+    @objc func signUpTapped(sender: UIButton!) {
+        self.transitionToSignUp()
+    }
+    
+    func transitionToLogin() {
         let loginViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.loginViewController) as? LoginViewController
         
         view.window?.rootViewController = loginViewController
         view.window?.makeKeyAndVisible()
     }
     
-    @objc func signUpTapped(sender: UIButton!) {
+    
+    func transitionToSignUp() {
         let signUpViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.signUpViewController) as? SignUpViewController
         
         view.window?.rootViewController = signUpViewController
+        view.window?.makeKeyAndVisible()
+    }
+    
+    //Transition to home when there is a user logged in
+    func transitionToHome() {
+        let homeViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.homeViewController) as? HomeViewController
+        
+        view.window?.rootViewController = homeViewController
         view.window?.makeKeyAndVisible()
     }
     

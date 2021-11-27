@@ -10,6 +10,9 @@ import FirebaseAuth
 import Firebase
 
 class HomeViewController: UIViewController {
+    
+    var logoutButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,26 +39,65 @@ class HomeViewController: UIViewController {
     */
     
     override func viewDidLayoutSubviews() {
-        let welcome = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 80, y: 80, width: 160, height: 40))
-        welcome.text = Auth.auth().currentUser?.email //current user email
+        let welcome = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 80, y: 80, width: 300, height: 100))
+        //welcome.text = Auth.auth().currentUser?.email //current user email
         
-        /*let db = Firestore.firestore()
+        let db = Firestore.firestore()
         let userData = db.collection("users").document(String(Auth.auth().currentUser!.uid))
         
         userData.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                let data = document.data()
+                //let data = document.data()
                 print("Document data: \(dataDescription)")
-                welcome.text = String(data!["firstName"])
+                welcome.text = "Welcome back " + (document["firstName"] as? String ?? "nil")
             } else {
                 print("Document does not exist")
             }
-        }*/
-        
+        }
+        //TODO: Create model and model listener
+        //TODO: Maintain user logged in
+        //TODO: UI design
+        //TODO: Figma??
         welcome.textColor = .black
+        welcome.minimumScaleFactor = 1.5
         welcome.adjustsFontSizeToFitWidth = true
         view.addSubview(welcome)
+        
+        
+        
+        //logout buttons
+        logoutButton = UIButton(frame: CGRect(x: (view.frame.size.width/2) + 20, y: (view.frame.size.height) - 75, width: (view.frame.size.width/2) - 40, height: 50))
+        logoutButton.setTitle("Logout", for: .normal)
+        //Utilities.styleFilledButton(logout)
+        logoutButton.setTitleColor(.red, for: .normal)
+        view.addSubview(logoutButton)
+        logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
+    }
+    
+    @objc func logoutTapped(sender: UIButton!) {
+        self.logoutUser()
+        self.transitionToMain()
+    }
+    
+    func logoutUser() {
+        do{
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            self.showError(logoutError.localizedDescription)
+        }
+    }
+    
+    //Transition to main screen after logout
+    func transitionToMain() {
+        let mainViewController = storyboard?.instantiateViewController(withIdentifier: Constants.Storyboard.mainViewController) as? ViewController
+        
+        view.window?.rootViewController = mainViewController
+        view.window?.makeKeyAndVisible()
     }
 
+    //Show error message label with passed text
+    func showError(_ message: String) {
+        logoutButton.setTitle(message, for: .normal)
+    }
 }
