@@ -45,6 +45,12 @@ class HomeViewController: UIViewController {
         let db = Firestore.firestore()
         let userData = db.collection("users").document(String(Auth.auth().currentUser!.uid))
         
+        let scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
+        //let scrollView = UIScrollView(frame: CGRect(x: 10, y: 10, width: view.frame.size.width - 20, height: view.frame.size.height - 20))  //View backgorund color margins
+        scrollView.backgroundColor = .white
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2100)
+        view.addSubview(scrollView)
+        
         userData.getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
@@ -56,22 +62,21 @@ class HomeViewController: UIViewController {
             }
         }
         //TODO: Create model and model listener
-        //TODO: Maintain user logged in
         //TODO: UI design
         //TODO: Figma??
         welcome.textColor = .black
         welcome.minimumScaleFactor = 1.5
         welcome.adjustsFontSizeToFitWidth = true
-        view.addSubview(welcome)
+        scrollView.addSubview(welcome)
         
         
         
         //logout buttons
-        logoutButton = UIButton(frame: CGRect(x: (view.frame.size.width/2) + 20, y: (view.frame.size.height) - 75, width: (view.frame.size.width/2) - 40, height: 50))
+        logoutButton = UIButton(frame: CGRect(x: (view.frame.size.width/2) + 20, y: (scrollView.frame.size.height) - 75, width: (view.frame.size.width/2) - 40, height: 50))
         logoutButton.setTitle("Logout", for: .normal)
         //Utilities.styleFilledButton(logout)
         logoutButton.setTitleColor(.red, for: .normal)
-        view.addSubview(logoutButton)
+        scrollView.addSubview(logoutButton)
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
     }
     

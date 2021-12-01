@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         let scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
         //let scrollView = UIScrollView(frame: CGRect(x: 10, y: 10, width: view.frame.size.width - 20, height: view.frame.size.height - 20))  //View backgorund color margins
         scrollView.backgroundColor = .white
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2100)
         view.addSubview(scrollView)
         
         let welcome = UILabel(frame: CGRect(x: (view.frame.size.width/2) - 80, y: 30, width: 160, height: 40))
@@ -60,7 +61,6 @@ class ViewController: UIViewController {
         menuEnd.textColor = .black
         scrollView.addSubview(menuEnd)
         
-        scrollView.contentSize = CGSize(width: view.frame.size.width, height: 2100)
         
         
         //Floating buttons
