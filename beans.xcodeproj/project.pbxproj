@@ -11,6 +11,8 @@
 		410E73862744EAD2000F4485 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 410E73852744EAD2000F4485 /* GoogleService-Info.plist */; };
 		4140087027461E20004080BE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4140086F27461E20004080BE /* Constants.swift */; };
 		4140087C2759F25A004080BE /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4140087B2759F251004080BE /* MenuTableViewController.swift */; };
+		41400882275DAE67004080BE /* DishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41400880275DAE66004080BE /* DishTableViewCell.swift */; };
+		41400883275DAE67004080BE /* DishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41400881275DAE67004080BE /* DishTableViewCell.xib */; };
 		41BA66DF274118DE0080A7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66DE274118DE0080A7FB /* AppDelegate.swift */; };
 		41BA66E1274118DE0080A7FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66E0274118DE0080A7FB /* SceneDelegate.swift */; };
 		41BA66E3274118DE0080A7FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66E2274118DE0080A7FB /* ViewController.swift */; };
@@ -49,6 +51,8 @@
 		410E73852744EAD2000F4485 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4140086F27461E20004080BE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4140087B2759F251004080BE /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		41400880275DAE66004080BE /* DishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTableViewCell.swift; sourceTree = "<group>"; };
+		41400881275DAE67004080BE /* DishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DishTableViewCell.xib; sourceTree = "<group>"; };
 		41BA66DB274118DE0080A7FB /* beans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BA66DE274118DE0080A7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41BA66E0274118DE0080A7FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 			path = "Table View Controllers";
 			sourceTree = "<group>";
 		};
+		4140087D275DABC5004080BE /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				41400880275DAE66004080BE /* DishTableViewCell.swift */,
+				41400881275DAE67004080BE /* DishTableViewCell.xib */,
+			);
+			path = "Table View Cells";
+			sourceTree = "<group>";
+		};
 		41BA66D2274118DE0080A7FB = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +160,7 @@
 			children = (
 				41BA672327411BD50080A7FB /* View Controllers */,
 				4140087A2759F210004080BE /* Table View Controllers */,
+				4140087D275DABC5004080BE /* Table View Cells */,
 				41BA67312742247E0080A7FB /* Helpers */,
 				41400871274780ED004080BE /* Media */,
 				41BA66DE274118DE0080A7FB /* AppDelegate.swift */,
@@ -332,6 +346,7 @@
 				41BA66EB274118E40080A7FB /* LaunchScreen.storyboard in Resources */,
 				410E73862744EAD2000F4485 /* GoogleService-Info.plist in Resources */,
 				41BA66E8274118E40080A7FB /* Assets.xcassets in Resources */,
+				41400883275DAE67004080BE /* DishTableViewCell.xib in Resources */,
 				41BA66E6274118DE0080A7FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41BA66E3274118DE0080A7FB /* ViewController.swift in Sources */,
+				41400882275DAE67004080BE /* DishTableViewCell.swift in Sources */,
 				41BA66DF274118DE0080A7FB /* AppDelegate.swift in Sources */,
 				41BA672D274224790080A7FB /* Utilities.swift in Sources */,
 				41BA671527411B820080A7FB /* SignUpViewController.swift in Sources */,
