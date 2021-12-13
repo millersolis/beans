@@ -5,21 +5,46 @@
 //  Created by Miller on 2/12/21.
 //
 
+import SwiftUI
 import UIKit
 
 // TODO: Make UITableViewController
 
-class MenuTableViewController: UIViewController {
+class MenuTableViewController: UIViewController{
     
-    let dishes: [String] = ["Poke bowl", "Peri-peri special", "Kangaroo from 2014", "Lemon garlic special", "beans special"]
+    //@ObservedObject var model = MenuViewModel()
+    
+    //let dishes: [String] = ["Poke bowl", "Peri-peri special", "Kangaroo from 2014", "Lemon garlic special", "beans special"]
+    
     let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
     let cellReuseIdentifier = "cell"
     
     var tableView: UITableView = UITableView()
     
+    var dishes = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        let currentMenu = Menu(id: "6-12-2021")
+        currentMenu.fetchDishes { success in
+            print(success)
+            self.dishes = [String]()
+            for dish in currentMenu.dishes {
+                self.dishes.append(dish.name)
+                print(dish.name)
+            }
+            self.tableView.reloadData()
+        }
+        
+        //print(currentMenu.dishes)
+        
+       
+        
+        print("CURRENT MENU ID " + currentMenu.id)
+        print(dishes)
+        
         //Auto-set the UITableViewCells height (requires iOS8+)
         tableView.rowHeight = 286
         
@@ -38,9 +63,6 @@ class MenuTableViewController: UIViewController {
         
         // (optional) include this line if you want to remove the extra empty cell divider lines
         // self.tableView.tableFooterView = UIView()
-
-        
-        
         
     }
     
