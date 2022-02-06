@@ -14,52 +14,73 @@ class MenuTableViewController: UIViewController{
     
     var tableView: UITableView = UITableView()
     
-    var dishes = [String]()
+    var dishes = [Dish]()
+    var dishNames = [String]()
+    var chosenOption: String = Options.non_vegan.rawValue
     
     let cellHeight: CGFloat = 200
     let marginFromTableEdge: CGFloat = 20
     let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
     
+    enum Options: String{
+        case non_vegan = "Non-vegan"
+        case vegan = "Vegan"
+    }
+    
+    enum SelectOption{
+        case non_vegan
+        case vegan
+    }
+    
+    func selectOption(_ option:SelectOption){
+        switch option{
+        case .non_vegan:
+            self.chosenOption = (Options.non_vegan).rawValue
+        case .vegan:
+            self.chosenOption = (Options.vegan).rawValue
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        let currentMenu = Menu(id: "6-12-2021")
-        currentMenu.fetchDishes { success in
+        let desiredMenu = Menu(id: "6-12-2021")
+        
+        desiredMenu.fetchDishes { success in
             print(success)
-            self.dishes = [String]()
-            for dish in currentMenu.dishes {
-                self.dishes.append(dish.name)
-                print(dish.name)
+            if success {
+                self.dishes = desiredMenu.dishes
+                
+                for dish in desiredMenu.dishes {
+                    self.dishNames.append(dish.name)
+                    print(dish.name)
+                }
+                
+                self.tableView.reloadData()
+                self.adjustTableSize()
             }
-            self.tableView.reloadData()
-            self.adjustHeight()
+            else {
+                self.showToast(message: "Could not load menu", font: UIFont.boldSystemFont(ofSize: 15))
+            }
         }
         
         //print(currentMenu.dishes)
         
         
-        print("CURRENT MENU ID " + currentMenu.id)
-        print(dishes)
+        print("CURRENT MENU ID " + desiredMenu.id)
+        print(dishNames)
         
         //Auto-set the UITableViewCells height (requires iOS8+)
         tableView.rowHeight = self.cellHeight
-        
         tableView.isScrollEnabled = false
         
-        //self.tableView = UITableView(frame: CGRect(x: 0, y: 225, width: view.frame.size.width, height: 500))
-        self.adjustHeight()
-        
+        self.adjustTableSize()
         self.registerTableViewCells()
         
-        self.tableView.backgroundColor = .white
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        // (optional) include this line if you want to remove the extra empty cell divider lines
-        // self.tableView.tableFooterView = UIView()
-        
+        tableView.backgroundColor = .white
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func registerTableViewCells() {
@@ -67,11 +88,32 @@ class MenuTableViewController: UIViewController{
         self.tableView.register(UINib(nibName: "DishTableViewCell", bundle: nil), forCellReuseIdentifier: "DishTableViewCell")
     }
     
-    private func adjustHeight() {
-        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing) + sectionSpacing)
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing) + sectionSpacing)
+    private func adjustTableSize() {
+        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishNames.count) * (cellHeight + sectionSpacing) + sectionSpacing)
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishNames.count) * (cellHeight + sectionSpacing) + sectionSpacing)
     }
     
+    func showToast(message: String, font: UIFont) {
+        let screenSize = UIScreen.main.bounds
+        
+        let toastLabel = UILabel(frame: CGRect(x: screenSize.width/2 - 100, y: screenSize.height - 80, width: 200, height: 50))
+        
+        toastLabel.backgroundColor = Constants.Colors.yellow.withAlphaComponent(1.0)
+        toastLabel.textColor = .darkGray
+        toastLabel.font = font
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 25
+        toastLabel.clipsToBounds = true
+        
+        self.tableView.superview?.addSubview(toastLabel)
+        UIView.animate(withDuration:4, delay:0.5, options:[], animations: {
+                toastLabel.alpha = 0.0;
+            }) { (Bool) in
+                    toastLabel.removeFromSuperview();
+            }
+    }
 }
 
 extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
@@ -101,10 +143,20 @@ extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell") as? DishTableViewCell
         
-        cell?.dishName.text = self.dishes[indexPath.section]
+        cell?.dishName.text = self.dishes[indexPath.section].name
         cell?.dishName.sizeToFit()
         
-        cell?.optionDescription.text = "Description"
+        cell?.option.text = self.chosenOption
+        cell?.option.sizeToFit()
+        
+        switch self.chosenOption{
+            case Options.non_vegan.rawValue:
+                cell?.optionDescription.text = self.dishes[indexPath.section].non_vegan.description
+            case Options.vegan.rawValue:
+                cell?.optionDescription.text = self.dishes[indexPath.section].vegan.description
+            default:
+                cell?.optionDescription.text = self.dishes[indexPath.section].non_vegan.description
+        }
         cell?.optionDescription.sizeToFit()
         
         return cell!
