@@ -31,6 +31,7 @@ class MenuTableViewController: UIViewController{
                 print(dish.name)
             }
             self.tableView.reloadData()
+            self.adjustHeight()
         }
         
         //print(currentMenu.dishes)
@@ -46,8 +47,8 @@ class MenuTableViewController: UIViewController{
         tableView.isScrollEnabled = false
         
         //self.tableView = UITableView(frame: CGRect(x: 0, y: 225, width: view.frame.size.width, height: 500))
-        self.tableView.frame = CGRect(x: sectionSpacing, y: 150, width: (view.frame.width) - 20, height: 286 * 5 + sectionSpacing * 5)
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - 20, height: 286 * 5  + sectionSpacing * 5)
+        self.tableView.frame = CGRect(x: sectionSpacing, y: 150, width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
         
         self.registerTableViewCells()
         
@@ -64,6 +65,12 @@ class MenuTableViewController: UIViewController{
     private func registerTableViewCells() {
        
         self.tableView.register(UINib(nibName: "DishTableViewCell", bundle: nil), forCellReuseIdentifier: "DishTableViewCell")
+    }
+    
+    private func adjustHeight() {
+        self.tableView.frame = CGRect(x: sectionSpacing, y: 150, width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
+        
     }
     
 }

@@ -46,20 +46,21 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        let menuTableController = MenuTableViewController()
+        
         //Scroll view setup
         self.scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
         self.scrollView.backgroundColor = .white
-        self.scrollView.contentSize = CGSize(width: view.frame.size.width, height: (286 * 5 + sectionSpacing * 5) + 150)
+        self.scrollView.contentSize = CGSize(width: view.frame.size.width, height: menuTableController.tableView.frame.height + 200)
         view.addSubview(scrollView)
                 
         
         //Embed tableView as subview
-        let menuTableController = MenuTableViewController()
-        embed(viewController: menuTableController, frame: CGRect(x: 0, y: 150, width: view.frame.size.width, height: 286 * 5 + sectionSpacing * 5))
+        embed(viewController: menuTableController, frame: CGRect(x: 0, y: 200, width: view.frame.size.width, height: menuTableController.tableView.frame.height))
         
         
         //Welcome label setup
-        self.welcome = UILabel(frame: CGRect(x: 0, y: 50, width: scrollView.frame.width, height: 50))
+        self.welcome = UILabel(frame: CGRect(x: 0, y: 60, width: scrollView.frame.width, height: 50))
         //welcome.text = Auth.auth().currentUser?.email //current user email
         
         
@@ -90,7 +91,7 @@ class HomeViewController: UIViewController {
         
         
         //logout button setup
-        logoutButton = UIButton(frame: CGRect(x: view.frame.size.width - 80, y: 5, width: 80, height: 25))
+        logoutButton = UIButton(frame: CGRect(x: view.frame.size.width - 80, y: 30, width: 80, height: 25))
         logoutButton.setTitle("Logout", for: .normal)
         logoutButton.setTitleColor(.red, for: .normal)
         logoutButton.addTarget(self, action: #selector(logoutTapped), for: .touchUpInside)
