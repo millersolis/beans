@@ -12,11 +12,13 @@ import UIKit
 
 class MenuTableViewController: UIViewController{
     
-    let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
-    
     var tableView: UITableView = UITableView()
     
     var dishes = [String]()
+    
+    let cellHeight: CGFloat = 200
+    let marginFromTableEdge: CGFloat = 20
+    let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,19 +38,18 @@ class MenuTableViewController: UIViewController{
         
         //print(currentMenu.dishes)
         
-       
         
         print("CURRENT MENU ID " + currentMenu.id)
         print(dishes)
         
         //Auto-set the UITableViewCells height (requires iOS8+)
-        tableView.rowHeight = 286
+        tableView.rowHeight = self.cellHeight
         
         tableView.isScrollEnabled = false
         
         //self.tableView = UITableView(frame: CGRect(x: 0, y: 225, width: view.frame.size.width, height: 500))
-        self.tableView.frame = CGRect(x: sectionSpacing, y: 150, width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
+        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
         
         self.registerTableViewCells()
         
@@ -68,8 +69,8 @@ class MenuTableViewController: UIViewController{
     }
     
     private func adjustHeight() {
-        self.tableView.frame = CGRect(x: sectionSpacing, y: 150, width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - 20, height: CGFloat(self.dishes.count) * (286 + sectionSpacing))
+        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
         
     }
     
@@ -100,18 +101,13 @@ extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell") as? DishTableViewCell
         
         cell?.dishName.text = self.dishes[indexPath.section]
         cell?.dishName.sizeToFit()
         
-        cell?.description1.text = "Description for option 1"
-        cell?.description1.sizeToFit()
-        
-        cell?.description2.text = "Description for option 2"
-        cell?.description2.sizeToFit()
+        cell?.optionDescription.text = "Description"
+        cell?.optionDescription.sizeToFit()
         
         return cell!
     }

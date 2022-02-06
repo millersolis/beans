@@ -8,47 +8,55 @@
 import UIKit
 
 
-
 class DishTableViewCell: UITableViewCell {
-
-    
     
     @IBOutlet weak var dishName: UILabel!
     
-    @IBOutlet weak var option1: UILabel!
-    @IBOutlet weak var description1: UILabel!
+    @IBOutlet weak var option: UILabel!
     
-    @IBOutlet weak var option2: UILabel!
-    @IBOutlet weak var description2: UILabel!
+    @IBOutlet weak var optionDescription: UILabel!
+    
+    @IBOutlet weak var picture: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        self.dishName.font = UIFont.boldSystemFont(ofSize: 20)
+        self.styleCell()
         
-        self.option1.font = UIFont.boldSystemFont(ofSize: 18)
-        self.option1.textColor = .darkGray
-        self.option1.text = "Non-vegan"
-        self.option1.sizeToFit()
+    }
+    
+    private func styleCell() {
+        // Content
+        self.styleCellContent()
         
-        self.option2.font = UIFont.boldSystemFont(ofSize: 18)
-        self.option2.textColor = .darkGray
-        self.option2.text = "Vegan"
-        self.option2.sizeToFit()
-        
-        self.description1.textColor = .systemGray2
-        self.description2.textColor = .systemGray2
-        
-        
-        
+        // Cell
         self.backgroundColor = Constants.Colors.yellow
-
         self.layer.borderColor = Constants.Colors.green.cgColor
         self.layer.borderWidth = 5
         self.layer.cornerRadius = 15
         self.clipsToBounds = true
+    }
+    
+    private func styleCellContent() {
+        self.dishName.font = UIFont.boldSystemFont(ofSize: 20)
+        self.dishName.textAlignment = .left
+        
+        self.option.font = UIFont.boldSystemFont(ofSize: 18)
+        self.option.textColor = .systemGray2
+        self.option.textAlignment = .left
+        
+        self.optionDescription.textColor = .darkGray
+        self.optionDescription.textAlignment = .left
+        // TODO test
+        self.optionDescription.lineBreakMode = .byTruncatingTail
+        
+        
+        // Placeholders
+        self.dishName.text = "Name"
+        self.option.text = "Option"
+        self.optionDescription.text = "Description"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
