@@ -48,8 +48,7 @@ class MenuTableViewController: UIViewController{
         tableView.isScrollEnabled = false
         
         //self.tableView = UITableView(frame: CGRect(x: 0, y: 225, width: view.frame.size.width, height: 500))
-        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
+        self.adjustHeight()
         
         self.registerTableViewCells()
         
@@ -69,9 +68,8 @@ class MenuTableViewController: UIViewController{
     }
     
     private func adjustHeight() {
-        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
-        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing))
-        
+        self.tableView.frame = CGRect(x: marginFromTableEdge, y: 200, width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing) + sectionSpacing)
+        self.tableView.contentSize = CGSize(width: (view.frame.width) - (2 * marginFromTableEdge), height: CGFloat(self.dishes.count) * (cellHeight + sectionSpacing) + sectionSpacing)
     }
     
 }
@@ -117,5 +115,25 @@ extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
         print("You tapped cell number \(indexPath.row).")
         print("in section \(indexPath.section).")
     }
+    
+    // Row tapping animation
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath)
+    {
+        let cell = tableView.cellForRow(at: indexPath)
 
+        UIView.animate(withDuration: 0.1) {
+            cell!.transform = CGAffineTransform(scaleX: 0.96, y: 0.96)
+            cell!.layer.shadowOpacity = 0.7
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath)
+    {
+        let cell = tableView.cellForRow(at: indexPath)
+
+        UIView.animate(withDuration: 0.4) {
+            cell!.transform = .identity
+            cell!.layer.shadowOpacity = 0.5
+        }
+    }
 }

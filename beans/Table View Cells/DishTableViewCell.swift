@@ -36,7 +36,13 @@ class DishTableViewCell: UITableViewCell {
         self.layer.borderColor = Constants.Colors.green.cgColor
         self.layer.borderWidth = 5
         self.layer.cornerRadius = 15
-        self.clipsToBounds = true
+        //self.clipsToBounds = true
+        
+        self.layer.masksToBounds = false
+        self.layer.shadowRadius = 4.0
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 5)
     }
     
     private func styleCellContent() {
@@ -60,7 +66,7 @@ class DishTableViewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+        // super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
