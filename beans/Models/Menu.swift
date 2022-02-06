@@ -66,19 +66,7 @@ class Menu {
         requestedMenu.addSnapshotListener { (document, error) in
 
             if let document = document, document.exists {
-                //let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                //print("Document data: \(dataDescription)")
-                /*let data = document.data()
                 
-                
-                //Get data inside document
-                for (dishNumber, dish) in data! {
-                    
-                    //Generate and append dish to array
-                    //dishesArray.append(Menu.getDish(dish: dish as! [String : Any]))
-                    
-                    
-                }*/
                 do{
                     //let menu = try document.data(as: MenuInDatabase.self)
                     self.dishes = try document.data(as: MenuInDatabase.self)!.dishes
@@ -103,23 +91,3 @@ class Menu {
     }
 
 }
-
-
-/*extension Menu {
-    
-    //func startManagerObservation() {
-        
-    //}
-    
-    
-    
-
-    /*static func getDish(dish: [String: Any]) -> Dish {
-        print (dish.map(String.init(describing:)))
-        
-        //for (key, value) in
-        
-        return Dish(name: dish["name"] as? String ?? "", non_vegan: dish["non-vegan"] as? [String : Any] ?? [:], vegan: dish["vegan"] as? [String : Any] ?? [:])
-    }*/
-
-}*/

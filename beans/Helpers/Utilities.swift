@@ -11,6 +11,15 @@ import UIKit
 
 class Utilities {
     
+    static func makeDateId(date:Date) -> String{
+        // TODO: return
+        return "Miller has not implemented this func"
+    }
+    
+    static func getMenu(weekStartDate:String) {
+        
+    }
+    
     static func styleTextField(_ textfield:UITextField) {
         
         // Create the bottom line

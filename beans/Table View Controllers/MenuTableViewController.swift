@@ -12,12 +12,7 @@ import UIKit
 
 class MenuTableViewController: UIViewController{
     
-    //@ObservedObject var model = MenuViewModel()
-    
-    //let dishes: [String] = ["Poke bowl", "Peri-peri special", "Kangaroo from 2014", "Lemon garlic special", "beans special"]
-    
     let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
-    let cellReuseIdentifier = "cell"
     
     var tableView: UITableView = UITableView()
     
@@ -67,8 +62,7 @@ class MenuTableViewController: UIViewController{
     }
     
     private func registerTableViewCells() {
-        //let textFieldCell = UINib(nibName: "DishTableViewCell", bundle: nil)
-        //self.tableView.register(textFieldCell, forCellReuseIdentifier: "DishTableViewCell")
+       
         self.tableView.register(UINib(nibName: "DishTableViewCell", bundle: nil), forCellReuseIdentifier: "DishTableViewCell")
     }
     
@@ -111,18 +105,6 @@ extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell?.description2.text = "Description for option 2"
         cell?.description2.sizeToFit()
-        
-        
-        /*if let cell = self.tableView.dequeueReusableCell(withIdentifier: "DishTableViewCell") as? DishTableViewCell {
-            // set the text from the data model
-            //cell.textLabel?.text = self.dishes[indexPath.section]
-            
-            
-            
-            return cell
-        }
-        
-        //return UITableViewCell()*/
         
         return cell!
     }
