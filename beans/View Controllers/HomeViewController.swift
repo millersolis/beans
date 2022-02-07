@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import FirebaseFirestoreSwift
 
 
 class HomeViewController: UIViewController {
@@ -46,7 +47,9 @@ class HomeViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let menuTableController = MenuTableViewController()
+        let currentMenuId = "6-12-2021"
+        
+        let menuTableController = MenuTableViewController(desiredMenuId: currentMenuId)
         
         //Scroll view setup
         self.scrollView = UIScrollView(frame: view.bounds) //Flush to the sides

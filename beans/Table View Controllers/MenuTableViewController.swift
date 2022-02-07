@@ -14,6 +14,7 @@ class MenuTableViewController: UIViewController{
     
     var tableView: UITableView = UITableView()
     
+    var desiredMenuId: String?
     var dishes = [Dish]()
     var dishNames = [String]()
     var chosenOption: String = Options.non_vegan.rawValue
@@ -21,6 +22,22 @@ class MenuTableViewController: UIViewController{
     let cellHeight: CGFloat = 200
     let marginFromTableEdge: CGFloat = 20
     let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
+    
+    
+    /*convenience init() {
+           self.init(imageURL: nil)
+    }*/
+
+    init(desiredMenuId: String) {
+        self.desiredMenuId = desiredMenuId
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    // if this view controller is loaded from a storyboard, imageURL will be nil
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
     
     enum Options: String{
         case non_vegan = "Non-vegan"
@@ -45,7 +62,7 @@ class MenuTableViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let desiredMenu = Menu(id: "6-12-2021")
+        let desiredMenu = Menu(id: desiredMenuId ?? "") // TODO: Make logic for no Id provided
         
         desiredMenu.fetchDishes { success in
             print(success)
