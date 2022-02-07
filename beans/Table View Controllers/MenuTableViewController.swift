@@ -52,9 +52,11 @@ class MenuTableViewController: UIViewController{
     func selectOption(_ option:SelectOption){
         switch option{
         case .non_vegan:
-            self.chosenOption = (Options.non_vegan).rawValue
+            self.chosenOption = Options.non_vegan.rawValue
+            self.tableView.reloadData()
         case .vegan:
-            self.chosenOption = (Options.vegan).rawValue
+            self.chosenOption = Options.vegan.rawValue
+            self.tableView.reloadData()
         }
     }
     
@@ -175,6 +177,9 @@ extension MenuTableViewController: UITableViewDelegate, UITableViewDataSource {
                 cell?.optionDescription.text = self.dishes[indexPath.section].non_vegan.description
         }
         cell?.optionDescription.sizeToFit()
+        
+        // TODO: Set images
+        // cell?.picture.image = UIImage(named: "default_image.JPEG")
         
         return cell!
     }

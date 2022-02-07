@@ -49,20 +49,21 @@ class DishTableViewCell: UITableViewCell {
         self.dishName.font = UIFont.boldSystemFont(ofSize: 20)
         self.dishName.textAlignment = .left
         
-        self.option.font = UIFont.boldSystemFont(ofSize: 18)
+        self.option.font = UIFont.boldSystemFont(ofSize: 15)
         self.option.textColor = .systemGray2
         self.option.textAlignment = .left
         
         self.optionDescription.textColor = .darkGray
         self.optionDescription.textAlignment = .left
         // TODO test
-        self.optionDescription.lineBreakMode = .byTruncatingTail
+        self.optionDescription.lineBreakMode = .byWordWrapping
         
         
         // Placeholders
         self.dishName.text = "Name"
         self.option.text = "Option"
         self.optionDescription.text = "Description"
+        self.picture.image = UIImage(named: "default_image.JPEG")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

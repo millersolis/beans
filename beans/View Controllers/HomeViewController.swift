@@ -14,8 +14,11 @@ import FirebaseFirestoreSwift
 class HomeViewController: UIViewController {
     
     var logoutButton: UIButton!
+    var optionControl: UISegmentedControl!
     var scrollView: UIScrollView!
     var welcome: UILabel!
+    
+    var menuTableController: MenuTableViewController!
     
     let sectionSpacing: CGFloat = Constants.MenuTableView.sectionSpacing
     
@@ -49,13 +52,16 @@ class HomeViewController: UIViewController {
         
         let currentMenuId = "6-12-2021"
         
-        let menuTableController = MenuTableViewController(desiredMenuId: currentMenuId)
+        menuTableController = MenuTableViewController(desiredMenuId: currentMenuId)
+        
         
         //Scroll view setup
-        self.scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
-        self.scrollView.backgroundColor = .white
-        self.scrollView.contentSize = CGSize(width: view.frame.size.width, height: menuTableController.tableView.frame.height + 200)
+        scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
+        scrollView.backgroundColor = .white
+        scrollView.contentSize = CGSize(width: view.frame.size.width, height: menuTableController.tableView.frame.height + 200)
         view.addSubview(scrollView)
+        
+        self.setupOptionController()
                 
         
         //Embed tableView as subview
@@ -63,7 +69,7 @@ class HomeViewController: UIViewController {
         
         
         //Welcome label setup
-        self.welcome = UILabel(frame: CGRect(x: 0, y: 60, width: scrollView.frame.width, height: 50))
+        welcome = UILabel(frame: CGRect(x: 0, y: 60, width: scrollView.frame.width, height: 50))
         //welcome.text = Auth.auth().currentUser?.email //current user email
         
         
@@ -134,5 +140,36 @@ class HomeViewController: UIViewController {
         scrollView.addSubview(viewController.tableView)
         viewController.view.frame = view.bounds
         viewController.didMove(toParent: self)
+    }
+    
+    func setupOptionController() {
+        optionControl = UISegmentedControl(items: [MenuTableViewController.Options.non_vegan.rawValue, MenuTableViewController.Options.vegan.rawValue])
+        
+        optionControl.addTarget(self, action: #selector(selectOption(_:)), for: .valueChanged)
+        
+        optionControl.selectedSegmentIndex = 0
+        menuTableController.selectOption(MenuTableViewController.SelectOption.non_vegan)
+        
+        optionControl.frame = CGRect(x: scrollView.frame.width/2 - 80, y: 120, width: 160, height: 40)
+        
+        optionControl.layer.cornerRadius = 40.0
+        optionControl.backgroundColor = Constants.Colors.green
+        optionControl.selectedSegmentTintColor = .white
+        
+        scrollView.addSubview(optionControl)
+    }
+    
+    @objc func selectOption(_ segmentedControl: UISegmentedControl) {
+        switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+            menuTableController.selectOption(MenuTableViewController.SelectOption.non_vegan)
+            print("Show non-veg")
+        case 1:
+            menuTableController.selectOption(MenuTableViewController.SelectOption.vegan)
+            print("Show veg")
+        default:
+            menuTableController.selectOption(MenuTableViewController.SelectOption.non_vegan)
+            print("Show non-veg")
+        }
     }
 }

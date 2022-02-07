@@ -14,6 +14,7 @@
 		41400882275DAE67004080BE /* DishTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41400880275DAE66004080BE /* DishTableViewCell.swift */; };
 		41400883275DAE67004080BE /* DishTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41400881275DAE67004080BE /* DishTableViewCell.xib */; };
 		41400886275F343B004080BE /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41400885275F3437004080BE /* Menu.swift */; };
+		418FFDB227B0BD4300BB8247 /* default_image.JPEG in Resources */ = {isa = PBXBuildFile; fileRef = 418FFDB127B0BD4100BB8247 /* default_image.JPEG */; };
 		41BA66DF274118DE0080A7FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66DE274118DE0080A7FB /* AppDelegate.swift */; };
 		41BA66E1274118DE0080A7FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66E0274118DE0080A7FB /* SceneDelegate.swift */; };
 		41BA66E3274118DE0080A7FB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41BA66E2274118DE0080A7FB /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 		41400880275DAE66004080BE /* DishTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishTableViewCell.swift; sourceTree = "<group>"; };
 		41400881275DAE67004080BE /* DishTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DishTableViewCell.xib; sourceTree = "<group>"; };
 		41400885275F3437004080BE /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		418FFDB127B0BD4100BB8247 /* default_image.JPEG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_image.JPEG; sourceTree = "<group>"; };
 		41BA66DB274118DE0080A7FB /* beans.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = beans.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		41BA66DE274118DE0080A7FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		41BA66E0274118DE0080A7FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		41400871274780ED004080BE /* Media */ = {
 			isa = PBXGroup;
 			children = (
+				418FFDB127B0BD4100BB8247 /* default_image.JPEG */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				41BA66E8274118E40080A7FB /* Assets.xcassets in Resources */,
 				41400883275DAE67004080BE /* DishTableViewCell.xib in Resources */,
 				41BA66E6274118DE0080A7FB /* Main.storyboard in Resources */,
+				418FFDB227B0BD4300BB8247 /* default_image.JPEG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
