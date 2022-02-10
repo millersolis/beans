@@ -1,0 +1,42 @@
+.DS_Store
+
+.Trashes
+
+*.swp
+
+.lock
+
+*~.nib
+
+DerivedData/
+
+build/
+
+*.pbxuser
+
+*.mode1v3
+
+*.mode2v3
+
+*.perspectivev3
+
+# Whitelist defaults
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+*.xccheckout
+
+####
+# Xcode 4 - Deprecated classes
+#
+# Allegedly, if you manually "deprecate" your classes, they get moved here.
+#
+# We're using source-control, so this is a "feature" that we do not want!
+
+*.moved-aside
+
+
+Pods/
+
