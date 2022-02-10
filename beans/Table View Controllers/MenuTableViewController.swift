@@ -97,7 +97,7 @@ class MenuTableViewController: UIViewController{
         self.adjustTableSize()
         self.registerTableViewCells()
         
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
     }

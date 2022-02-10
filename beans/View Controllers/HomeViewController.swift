@@ -59,6 +59,7 @@ class HomeViewController: UIViewController {
         scrollView = UIScrollView(frame: view.bounds) //Flush to the sides
         scrollView.backgroundColor = .white
         scrollView.contentSize = CGSize(width: view.frame.size.width, height: menuTableController.tableView.frame.height + 200)
+        
         view.addSubview(scrollView)
         
         self.setupOptionController()

@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import MapboxMaps
 
 class SignUpViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
     
+    internal var mapView: MapView!
     var backButton: UIButton!
     
 
@@ -33,6 +35,7 @@ class SignUpViewController: UIViewController {
         }
         
         setUpElements()
+        setUpMap()
     }
     
     override func viewDidLayoutSubviews() {
@@ -42,8 +45,17 @@ class SignUpViewController: UIViewController {
         backButton = UIButton(frame: CGRect(x: 25, y: 45, width: 30, height: 30))
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
         backButton.tintColor = Constants.Colors.green
-        view.addSubview(backButton)
+        self.view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+    }
+    
+    func setUpMap() {
+        let myResourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoiYmVhbnNzIiwiYSI6ImNremYwODFvNzNjeWIyb3IxMW9pZ3dmcW0ifQ.lX8cXzONIzodv0PVJxT3jg")
+        let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions)
+        mapView = MapView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2), mapInitOptions: myMapInitOptions)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+         
+        self.view.addSubview(mapView)
     }
     
     func setUpElements() {

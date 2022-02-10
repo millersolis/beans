@@ -15,6 +15,10 @@ target 'beans' do
   target 'beansUITests' do
     # Pods for testing
   end
+
+  # Pods for MapBox
+  pod 'MapboxMaps', '10.2.0'
+
   
   # Pods for firebase
   pod 'Firebase/Analytics'

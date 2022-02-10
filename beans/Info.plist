@@ -24,6 +24,8 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoiYmVhbnNzIiwiYSI6ImNremYwODFvNzNjeWIyb3IxMW9pZ3dmcW0ifQ.lX8cXzONIzodv0PVJxT3jg</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
