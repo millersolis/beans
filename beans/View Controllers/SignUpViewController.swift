@@ -15,9 +15,15 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var addressTextField: UITextField!
+    
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
+    
+
+    @IBOutlet weak var mapContainerView: UIView!
     
     internal var mapView: MapView!
     var backButton: UIButton!
@@ -45,17 +51,72 @@ class SignUpViewController: UIViewController {
         backButton = UIButton(frame: CGRect(x: 25, y: 45, width: 30, height: 30))
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
         backButton.tintColor = Constants.Colors.green
-        self.view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
     }
     
     func setUpMap() {
         let myResourceOptions = ResourceOptions(accessToken: "pk.eyJ1IjoiYmVhbnNzIiwiYSI6ImNremYwODFvNzNjeWIyb3IxMW9pZ3dmcW0ifQ.lX8cXzONIzodv0PVJxT3jg")
-        let myMapInitOptions = MapInitOptions(resourceOptions: myResourceOptions)
-        mapView = MapView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height/2), mapInitOptions: myMapInitOptions)
+        
+        // Center the map camera over Davie and Granville.
+        let centerCoordinate = CLLocationCoordinate2D(latitude: 49.277156,
+                                                              longitude: -123.126218)
+        let options = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: CameraOptions(center: centerCoordinate, zoom: 13.0))
+        
+        mapView = MapView(frame: self.mapContainerView.frame, mapInitOptions: options)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
          
-        self.view.addSubview(mapView)
+        mapContainerView.addSubview(mapView)
+        
+        // Allow the view controller to receive information about map events.
+        mapView.mapboxMap.onNext(.mapLoaded) { _ in
+            self.setUpCoverageZone()
+        }
+
+    }
+    
+    func setUpCoverageZone() {
+        
+        // Attempt to decode GeoJSON from file bundled with application.
+        guard let featureCollection = try? decodeGeoJSON(from: "coverageZone1") else { return }
+        let geoJSONDataSourceIdentifier = "geoJSON-data-source"
+         
+        // Create a GeoJSON data source.
+        var geoJSONSource = GeoJSONSource()
+        geoJSONSource.data = .featureCollection(featureCollection)
+        
+        var polygonLayer = FillLayer(id: "fill-layer")
+        polygonLayer.filter = Exp(.eq) {
+            "$type"
+            "Polygon"
+        }
+        
+        polygonLayer.source = geoJSONDataSourceIdentifier
+        polygonLayer.fillColor = .constant(StyleColor(.green))
+        polygonLayer.fillOpacity = .constant(0.3)
+        polygonLayer.fillOutlineColor = .constant(StyleColor(.purple))
+        
+        // Add the source and style layers to the map style.
+        try! mapView.mapboxMap.style.addSource(geoJSONSource, id: geoJSONDataSourceIdentifier)
+
+        try! mapView.mapboxMap.style.addLayer(polygonLayer)
+        
+        
+    }
+    
+    // Load GeoJSON file from local bundle and decode into a `FeatureCollection`.
+    internal func decodeGeoJSON(from fileName: String) throws -> FeatureCollection? {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: "geojson") else {
+            preconditionFailure("File '\(fileName)' not found.")
+        }
+        let filePath = URL(fileURLWithPath: path)
+        var featureCollection: FeatureCollection?
+        do {
+            let data = try Data(contentsOf: filePath)
+            featureCollection = try JSONDecoder().decode(FeatureCollection.self, from: data)
+        } catch {
+            print("Error parsing data: \(error)")
+        }
+        return featureCollection
     }
     
     func setUpElements() {
@@ -66,7 +127,9 @@ class SignUpViewController: UIViewController {
         Utilities.styleTextField(firstNameTextField)
         Utilities.styleTextField(lastNameTextField)
         Utilities.styleTextField(emailTextField)
+        Utilities.styleTextField(phoneTextField)
         Utilities.styleTextField(passwordTextField)
+        Utilities.styleTextField(addressTextField)
         
         //Style button
         Utilities.styleFilledButton(signUpButton)
