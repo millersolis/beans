@@ -52,6 +52,8 @@ class SignUpViewController: UIViewController {
         backButton.setImage(UIImage(systemName: "arrowshape.turn.up.backward.fill"), for: .normal)
         backButton.tintColor = Constants.Colors.green
         backButton.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        
+        self.view.addSubview(backButton)
     }
     
     func setUpMap() {
@@ -60,18 +62,79 @@ class SignUpViewController: UIViewController {
         // Center the map camera over Davie and Granville.
         let centerCoordinate = CLLocationCoordinate2D(latitude: 49.277156,
                                                               longitude: -123.126218)
-        let options = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: CameraOptions(center: centerCoordinate, zoom: 13.0))
+        let options = MapInitOptions(resourceOptions: myResourceOptions, cameraOptions: CameraOptions(center: centerCoordinate, zoom: 13.0, bearing: -17.6, pitch: 45))
         
         mapView = MapView(frame: self.mapContainerView.frame, mapInitOptions: options)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-         
+        mapView.gestures.options.pinchRotateEnabled = false
+        
         mapContainerView.addSubview(mapView)
         
         // Allow the view controller to receive information about map events.
         mapView.mapboxMap.onNext(.mapLoaded) { _ in
             self.setUpCoverageZone()
+            self.makeBuildings3D()
         }
 
+    }
+    
+    func makeBuildings3D() {
+        addBuildingExtrusions()
+
+        let cameraOptions = CameraOptions(zoom: 13.0,
+                                          bearing: -17.6,
+                                          pitch: 45)
+        
+        mapView.mapboxMap.setCamera(to: cameraOptions)
+
+        // The below lines are used for internal testing purposes only.
+        DispatchQueue.main.asyncAfter(deadline: .now()+5.0) {
+            // self.finish()
+        }
+    }
+
+    // See https://docs.mapbox.com/mapbox-gl-js/example/3d-buildings/ for equivalent gl-js example
+    internal func addBuildingExtrusions() {
+        var layer = FillExtrusionLayer(id: "3d-buildings")
+
+        layer.source                      = "composite"
+        layer.minZoom                     = 4
+        layer.sourceLayer                 = "building"
+        layer.fillExtrusionColor   = .constant(StyleColor(.lightGray))
+        layer.fillExtrusionOpacity = .constant(0.68)
+
+        layer.filter = Exp(.eq) {
+            Exp(.get) {
+                "extrude"
+            }
+            "true"
+        }
+
+        layer.fillExtrusionHeight = .expression(
+            Exp(.interpolate) {
+                Exp(.linear)
+                Exp(.zoom)
+                4
+                0
+                20.05
+                Exp(.get) {
+                    "height"
+                }
+            }
+        )
+
+        layer.fillExtrusionBase = .expression(
+            Exp(.interpolate) {
+                Exp(.linear)
+                Exp(.zoom)
+                4
+                0
+                20.05
+                Exp(.get) { "min_height"}
+            }
+        )
+
+        try! mapView.mapboxMap.style.addLayer(layer)
     }
     
     func setUpCoverageZone() {
@@ -92,7 +155,7 @@ class SignUpViewController: UIViewController {
         
         polygonLayer.source = geoJSONDataSourceIdentifier
         polygonLayer.fillColor = .constant(StyleColor(.green))
-        polygonLayer.fillOpacity = .constant(0.3)
+        polygonLayer.fillOpacity = .constant(0.38)
         polygonLayer.fillOutlineColor = .constant(StyleColor(.purple))
         
         // Add the source and style layers to the map style.
