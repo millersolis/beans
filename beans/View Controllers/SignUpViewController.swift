@@ -12,6 +12,8 @@ import MapboxMaps
 
 class SignUpViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -183,6 +185,12 @@ class SignUpViewController: UIViewController {
     }
     
     func setUpElements() {
+        
+        titleLabel.textColor = Constants.Colors.green
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        titleLabel.textAlignment = .center
+        titleLabel.text = "Create an account"
+        
         //Hide error label
         errorLabel.alpha = 0
         
